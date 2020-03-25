@@ -31,5 +31,9 @@
 *.out
 *.app
 
-#Pio Files
-**/.pio/
+### PlatformIO ###
+.pioenvs
+.piolibdeps
+.clang_complete
+.gcc-flags.json
+.pio
