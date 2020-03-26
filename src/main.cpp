@@ -22,40 +22,36 @@ NTPClient timeClient(ntpUDP, "pool.ntp.org", 3600);
 // Var to start WebServer
 WiFiServer server(80);
 
+// Var to initialize local AP
+IPAddress Current_IP(192,168,1,5);
+IPAddress gateway(192,168,1,10);
+IPAddress subnet(255,255,255,0);
+
 void connectToWlan(){
 
   WiFi.begin(ssid, password);
-  // WiFi.hostname("wortuhr");
-  wifi_station_set_hostname("wortuhr");
-
-  while ( WiFi.status() != WL_CONNECTED ) {
+  int8 i = 0;
+  while ( (WiFi.status() != WL_CONNECTED) && i < 5 ) {
     delay ( 500 );
     Serial.print ( "." );
+    ++i;
   }
-  Serial.print("Connected to Wifi ");
-  Serial.println(WiFi.SSID());
 }
 
-void scanNetworks(){
-  // scan for nearby networks:
-  Serial.println("** Scan Networks **");
-  byte numSsid = WiFi.scanNetworks();
-
-  // print the list of networks seen:
-  Serial.print("SSID List:");
-  Serial.println(numSsid);
-  // print the network number and name for each network found:
-  for (int thisNet = 0; thisNet<numSsid; thisNet++) {
-    Serial.print(thisNet);
-    Serial.print(") Network: ");
-    Serial.println(WiFi.SSID(thisNet));
-  }
+void startWifiAP(){
+  // Versuche AP zu starten bis es klappt
+  WiFi.softAPConfig(Current_IP, gateway, subnet);
+  while(!WiFi.softAP("Wortuhr")){
+    Serial.println("Failed!");
+  };
+  Serial.print("AP have: ");
+  Serial.println(Current_IP);
 }
 
 void startWebServer(){
   server.begin();
   Serial.print("Server is at: ");
-  Serial.println(WiFi.localIP());
+  Serial.println(Current_IP);
 }
 
 void displayNetworks(WiFiClient &client){
@@ -75,15 +71,29 @@ void displayNetworks(WiFiClient &client){
 }
 
 void sendWebsite(WiFiClient &client){
+  // HTTP headers always start with a response code (e.g. HTTP/1.1 200 OK)
+  // and a content-type so the client knows what's coming, then a blank line:
   client.println("HTTP/1.1 200 OK");
   client.println("Content-Type: text/html");
   client.println("Connection: close");
   client.println();
-  client.println("<!DOCTYPE HTML>");
-  client.println("<html lang=\"de\">");
-  // Here comes the code of displayed Webserver
-  client.println("<head>");
+
+  // Here comes the get values of Input fields
+
+
+  // Display the HTML web page
+  client.println("<!DOCTYPE HTML><html>");
+  client.println("<head><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">");
+  client.println("<link rel=\"icon\" href=\"data:,\">");
+  
+  // CSS to style everything
+  client.println("<style>html { font-family: Helvetica; }"); 
+  client.println("</style>");
+
+  // Web Page Title
   client.println("<title>Sebi & Eli Wortuhr</title>");
+
+  // Script for send InputData
   client.println("<script>strText = \"ad\";");
   client.println("function SendText() {");
   client.println("nocache = \"&nocache=\" + Math.random() * 1000000;");
@@ -92,13 +102,21 @@ void sendWebsite(WiFiClient &client){
   client.println("request.open(\"GET\", \"ajax_inputs\" + strText + nocache, true);");
   client.println("request.send(null);}</script>");
   client.println("</head>");
-  client.println("<body><font face=\"verdana\">");
+
+  // Web Page Data
+  client.println("<body>");
+  // Web Page Headline
   client.println("<h1>&#10084 Willkommen Sebi & Eli &#10084</h1>");
+  // Available WiFis
   displayNetworks(client);
+
+  // Input Fields for Setting Wifi Data
   client.println("<br><p>SSID:</p>");
   client.println("<input type=\"text\" name=\"SSID\" value=\"\"><br>");
   client.println("<p>Passwort:</p>");
   client.println("<input type=\"text\" name=\"Passwort\" value=\"\">");
+
+  // Close HTML Tags
   client.println("</font></body>");
   client.println("</html>");
 }
@@ -142,8 +160,18 @@ void serveWebServer(){
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(9600);
+  // Try to connect to default Wlan configured on top
   connectToWlan();
-  timeClient.begin();
+  if ( WiFi.status() == WL_CONNECTED ) {
+    // WLAN connection success
+    Serial.print("Connected to Wifi ");
+    Serial.println(WiFi.SSID());
+    timeClient.begin();
+  } else {
+    // Start WLAN AP because WLAN connect wont work
+    startWifiAP();
+  }
+  // Start global Webserver for adjusting WLAN Connectivity
   startWebServer();
 }
 
