@@ -39,3 +39,6 @@
 .pio
 .pio/
 .pio/build/project.checksum
+
+#Vscode
+.Vscode
