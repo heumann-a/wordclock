@@ -1,7 +1,8 @@
 // WIFI Connection Handling
+#pragma once
 #include <ESP8266WiFi.h>
 #include <WiFiManager.h>
-#include <Arduino.h>
+#include <DNSServer.h> 
 
 class WLAN {
     public:

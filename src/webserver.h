@@ -1,10 +1,11 @@
+#pragma once
 #include <ESP8266WebServer.h>
 
 class WebServer {
-    private:
-        ESP8266WebServer httpwebserver;
-        static String IP;
     public:
+        static ESP8266WebServer httpwebserver;
+        static String IP;
+
         static void setup();
         static void loop();
 };

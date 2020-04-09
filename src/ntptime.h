@@ -1,14 +1,18 @@
 // NTP WiFi Connection
+#pragma once
 #include <NTPClient.h>
 #include <WiFiUdp.h>
 
 class NTPTime {
-    private:
+    public:
         // Var to connect to NTP
         static WiFiUDP udpNTP;
         // NTP Client initalization
         static NTPClient ntpClient;
-    public:
+
+        static int hour;
+        static int minute;
+
         static void setup();
         static void loop();
-};
+    };
