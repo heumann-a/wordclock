@@ -1,11 +1,11 @@
 // WIFI Connection Handling
-#pragma once
-#include <ESP8266WiFi.h>
-#include <WiFiManager.h>
-#include <DNSServer.h> 
+#ifndef WORDCLOCK_WIFI_H
+#define WORDCLOCK_WIFI_H
 
 class WLAN {
     public:
         static void setup();
         static void reset();
 };
+
+#endif

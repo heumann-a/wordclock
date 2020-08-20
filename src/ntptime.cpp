@@ -1,9 +1,14 @@
+#include <Arduino.h>
+#include <NTPClient.h>
+#include <WiFiUdp.h>
+
 #include "ntptime.h"
+#include "config.h"
+#include "utcOffset.h"
 
 void NTPTime::setup() {
     NTPTime::ntpClient.begin();
     NTPTime::ntpClient.update();
-    // NTPTime::ntpClient.setTimeOffset();
 }
 
 void NTPTime::loop() {
@@ -23,6 +28,11 @@ void NTPTime::loop() {
         NTPTime::hour = h;
 
         //Set GridTime
+
+        if (Config::automatic_timezone) {
+            Config::timezone = UtcOffset::getLocalizedUtcOffset();
+            NTPTime::ntpClient.setTimeOffset(Config::timezone);
+    }
     }
 }
 

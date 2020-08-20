@@ -1,6 +1,5 @@
-#pragma once
-#include "webserver.h"
-#include "wifi.h"
+#ifndef WORDCLOCK_GUI_H
+#define WORDCLOCK_GUI_H
 
 
 class WebGui {
@@ -16,3 +15,5 @@ class WebGui {
 
         static String index();
 };
+
+#endif

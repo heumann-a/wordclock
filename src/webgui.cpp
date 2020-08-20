@@ -1,4 +1,7 @@
+#include <Arduino.h>
+
 #include "webgui.h"
+#include "webserver.h"
 
 String WebGui::pad(int value) {
   if(value < 10) {
@@ -219,6 +222,7 @@ String WebGui::index() {
   content += WebGui::createContent();
   content += WebGui::createFooter();
   content += "</div>";
+  //TODO: Eigenen Header mit "made with love"
   content += "</body></html>";
 
   return content;
