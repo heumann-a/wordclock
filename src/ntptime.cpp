@@ -3,7 +3,7 @@
 #include <WiFiUdp.h>
 
 #include "ntptime.h"
-#include "config.h"
+#include "grid.h"
 #include "utcOffset.h"
 
 void NTPTime::setup() {
@@ -14,11 +14,13 @@ void NTPTime::setup() {
 void NTPTime::loop() {
     NTPTime::ntpClient.update();
     
-    int h = NTPTime::ntpClient.getHours() || -1;
-    int m = NTPTime::ntpClient.getMinutes() || -1;
+    int h = NTPTime::ntpClient.getHours();
+    int m = NTPTime::ntpClient.getMinutes();
 
     // Check if new Minute began
     if(m != NTPTime::minute) {
+        Serial.print("New Minute - ");
+        Serial.println(NTPTime::ntpClient.getFormattedTime());
         // Check for new Hour
         if(m == 0 && h == NTPTime::hour) {
             h = (++h) % 24;
@@ -26,13 +28,12 @@ void NTPTime::loop() {
 
         NTPTime::minute = m;
         NTPTime::hour = h;
-
-        //Set GridTime
+        Grid::setTime(NTPTime::hour, NTPTime::minute);
 
         if (Config::automatic_timezone) {
             Config::timezone = UtcOffset::getLocalizedUtcOffset();
             NTPTime::ntpClient.setTimeOffset(Config::timezone);
-    }
+        }
     }
 }
 

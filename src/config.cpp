@@ -1,13 +1,15 @@
-#include <FS.h>
+#include <LittleFS.h>
 #include <ArduinoJson.h>
 
 #include "config.h"
 #include "ntptime.h"
-//#include "led.h"
+#include "types.h"
+#include "led.h"
 #include "utcOffset.h"
 
+
 void Config::save() {
-  File file = SPIFFS.open("/wordclock_config.json", "w");
+  File file = LittleFS.open("/wordclock_config.json", "w");
 
   if(!file) {
     Serial.println("Can't open wordclock_config.json for writing");
@@ -43,6 +45,8 @@ void Config::save() {
 }
 
 void Config::load() {
+
+  // Load Default Values
   Config::color_bg.r = 0;
   Config::color_bg.g = 0;
   Config::color_bg.b = 0;
@@ -55,7 +59,7 @@ void Config::load() {
   Config::brightness = 0.5;
 
   Config::automatic_timezone = true;
-  Config::timezone = 0;
+  Config::timezone = 7200; // in Minutes 2 hours Offset for Germany
 
   Config::dnd_active = false;
   Config::dnd_start.hour = -1;
@@ -64,7 +68,8 @@ void Config::load() {
   Config::dnd_end.minute = -1;
   Config::ntp = "pool.ntp.org";
 
-  File file = SPIFFS.open("/wordclock_config.json", "r");
+  // Open saved Config from File
+  File file = LittleFS.open("/wordclock_config.json", "r");
 
   if(!file) {
     Serial.println("Failed to open config file.");
@@ -77,26 +82,27 @@ void Config::load() {
   StaticJsonDocument<1024> doc;
   deserializeJson(doc, file);
 
+  // Colour Settings
+  // Background Color
   Config::color_bg.r = doc["color_bg_r"].as<int>();
   Config::color_bg.g = doc["color_bg_g"].as<int>();
   Config::color_bg.b = doc["color_bg_b"].as<int>();
-
+  //Foreground Color
   Config::color_fg.r = doc["color_fg_r"].as<int>();
   Config::color_fg.g = doc["color_fg_g"].as<int>();
   Config::color_fg.b = doc["color_fg_b"].as<int>();
 
+  // Power Supply Power
   if(doc["power_supply"]) {
     Config::power_supply = doc["power_supply"].as<int>();
   }
 
   if(doc["brightness"]) {
-    // TODO: fix LED header link
-    // Config::brightness =
-    //   (doc["brightness"].as<double>() > Led::getMaxBrightnessPercnt()) ? Led::getMaxBrightnessPercnt() : doc["brightness"].as<double>();
     Config::brightness =
-   (doc["brightness"].as<double>() > 10.0) ? 10.0 : doc["brightness"].as<double>();
+      (doc["brightness"].as<double>() > Led::getMaxBrightnessPercnt()) ? Led::getMaxBrightnessPercnt() : doc["brightness"].as<double>();
   }
 
+  // AutoTimezone Active 
   if (doc["tz_auto"]) {
     Config::automatic_timezone = doc["tz_auto"].as<bool>();
   }
@@ -107,12 +113,14 @@ void Config::load() {
     Config::timezone = doc["timezone"].as<int>();
   }
 
+  // Do Not Disturb Settings
   Config::dnd_active = doc["dnd_active"].as<bool>();
   Config::dnd_start.hour = doc["dnd_start_hour"].as<int>();
   Config::dnd_start.minute = doc["dnd_start_minute"].as<int>();
   Config::dnd_end.hour = doc["dnd_end_hour"].as<int>();
   Config::dnd_end.minute = doc["dnd_end_minute"].as<int>();
 
+  // NTP Pool 
   if(doc["ntp"]) {
     Config::ntp = doc["ntp"].as<String>();
   }

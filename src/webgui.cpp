@@ -2,6 +2,8 @@
 
 #include "webgui.h"
 #include "webserver.h"
+#include "config.h"
+#include "led.h"
 
 String WebGui::pad(int value) {
   if(value < 10) {
@@ -99,37 +101,36 @@ String WebGui::createContent() {
 
   content += "<section id=\"color\" class=\"active\">";
   content += "<div><label>Vordergrundfarbe</label><input id=\"fg\" value=\"#\" type=\"color\"></div>";
-  content += "<div><label>Hintergrundfarbe</label><input id=\"bg\" value=\"#\" type=\"color\"></div>";
-//   content += "<div><label>Stromversorgung in mA</label><input id=\"power_supply\" type=\"number\" min=0 step=\"100\" value=\"" + String(Config::power_supply) + "\"></div>";
+  content += "<div><label>Hintergrundfarbe</label><input id=\"bg\" value=\"#\" type=\"color\"></div>";   content += "<div><label>Stromversorgung in mA</label><input id=\"power_supply\" type=\"number\" min=0 step=\"100\" value=\"" + String(Config::power_supply) + "\"></div>";
   content += "<div>";
   content += "<label>Helligkeit test</label>";
-//   content += "<select id=\"brightness\">";
+  content += "<select id=\"brightness\">";
 
-//   for (double brightness_percnt = 0.0; brightness_percnt < Led::getMaxBrightnessPercnt(); brightness_percnt+=0.1) {
-//     String label = String((int) (brightness_percnt * 100 + 0.5)) + "&percnt;"; // adding 0.5 for rounding.
-//     content += Gui::htmlOption(label, String(brightness_percnt), String(Config::brightness));
-//   }
-//   if (Led::getMaxBrightnessPercnt() < 1.0) { // show maximum brightness percentage between the 10% steps.
-//     String label = String((int) (Led::getMaxBrightnessPercnt() * 100 + 0.5)) + "&percnt;";
-//     content += Gui::htmlOption(label, String(Led::getMaxBrightnessPercnt()), String(Config::brightness));
-//   }
+  for (double brightness_percnt = 0.0; brightness_percnt < Led::getMaxBrightnessPercnt(); brightness_percnt+=0.1) {
+    String label = String((int) (brightness_percnt * 100 + 0.5)) + "&percnt;"; // adding 0.5 for rounding.
+    content += WebGui::htmlOption(label, String(brightness_percnt), String(Config::brightness));
+  }
+  if (Led::getMaxBrightnessPercnt() < 1.0) { // show maximum brightness percentage between the 10% steps.
+    String label = String((int) (Led::getMaxBrightnessPercnt() * 100 + 0.5)) + "&percnt;";
+    content += WebGui::htmlOption(label, String(Led::getMaxBrightnessPercnt()), String(Config::brightness));
+  }
 
-//   content += "</select>";
+  content += "</select>";
   content += "</div>";
   content += "</section>";
 
   content += "<section id=\"time\">";
   content += "<div><label>Automatische Zeitzone</label>";
-//   content += "<select id=\"tz_auto\">";
-//   content += Gui::htmlOption("Inaktiv", String(0), String(Config::automatic_timezone));
-//   content += Gui::htmlOption("Aktiv", String(1), String(Config::automatic_timezone));
-//   content += "</select></div>";
+  content += "<select id=\"tz_auto\">";
+  content += WebGui::htmlOption("Inaktiv", String(0), String(Config::automatic_timezone));
+  content += WebGui::htmlOption("Aktiv", String(1), String(Config::automatic_timezone));
+  content += "</select></div>";
   content += "<div><label>Zeitzone</label>";
-//   if (Config::automatic_timezone) {
+  if (Config::automatic_timezone) {
     content += "<select id=\"tz\" disabled>";
-//   } else {
-//     content += "<select id=\"tz\">";
-//   }
+  } else {
+    content += "<select id=\"tz\">";
+  }
 
   for(int i = -12; i < 13; i++) {
     String label = String(i);
@@ -138,43 +139,43 @@ String WebGui::createContent() {
       label = "+" + label;
     }
 
-    // content += Gui::htmlOption(label, String(i * 3600), String(Config::timezone));
+    content += WebGui::htmlOption(label, String(i * 3600), String(Config::timezone));
   }
 
   content += "</select></div>";
-//   content += "<div><label>NTP-Server</label><input id=\"ntp\" type=\"text\" value=\"" + Config::ntp + "\"></div>";
+  content += "<div><label>NTP-Server</label><input id=\"ntp\" type=\"text\" value=\"" + Config::ntp + "\"></div>";
   content += "</section>";
 
   content += "<section id=\"dnd\">";
   content += "<div><label>Nachtmodus</label><select id=\"dnd_active\">";
-//   content += Gui::htmlOption("Inaktiv", String(0), String(Config::dnd_active));
-//   content += Gui::htmlOption("Aktiv", String(1), String(Config::dnd_active));
+  content += WebGui::htmlOption("Inaktiv", String(0), String(Config::dnd_active));
+  content += WebGui::htmlOption("Aktiv", String(1), String(Config::dnd_active));
   content += "</select></div>";
   content += "<div><label>Start</label><div class=\"time\">";
   content += "<select id=\"dnd_s_h\">";
 
-//   for(int i = 0; i < 24; i++) {
-//     content += Gui::htmlOption(Gui::pad(i), String(i), String(Config::dnd_start.hour));
-//   }
+  for(int i = 0; i < 24; i++) {
+    content += WebGui::htmlOption(WebGui::pad(i), String(i), String(Config::dnd_start.hour));
+  }
 
   content += "</select><span>:</span><select id=\"dnd_s_m\">";
 
-//   for(int i = 0; i < 60; i = i + 5) {
-//     content += Gui::htmlOption(Gui::pad(i), String(i), String(Config::dnd_start.minute));
-//   }
+  for(int i = 0; i < 60; i = i + 5) {
+    content += WebGui::htmlOption(WebGui::pad(i), String(i), String(Config::dnd_start.minute));
+  }
 
   content += "</select></div></div>";
   content += "<div><label>Ende</label><div class=\"time\"><select id=\"dnd_e_h\">";
 
-//   for(int i = 0; i < 24; i++) {
-//     content += Gui::htmlOption(Gui::pad(i), String(i), String(Config::dnd_end.hour));
-//   }
+  for(int i = 0; i < 24; i++) {
+    content += WebGui::htmlOption(WebGui::pad(i), String(i), String(Config::dnd_end.hour));
+  }
 
   content += "</select><span>:</span><select id=\"dnd_e_m\">";
 
-//   for(int i = 0; i < 60; i = i + 5) {
-//     content += Gui::htmlOption(Gui::pad(i), String(i), String(Config::dnd_end.minute));
-//   }
+  for(int i = 0; i < 60; i = i + 5) {
+    content += WebGui::htmlOption(WebGui::pad(i), String(i), String(Config::dnd_end.minute));
+  }
 
   content += "</select></div></div>";
   content += "</section>";
@@ -201,7 +202,7 @@ String WebGui::createFooter() {
 String WebGui::index() {
   String content = "";
 
-  //HttpServer::change();
+  //WebServer::change();
 
   content += "<!DOCTYPE html><html><head>";
   content += "<meta charset=\"utf-8\">";
@@ -222,7 +223,7 @@ String WebGui::index() {
   content += WebGui::createContent();
   content += WebGui::createFooter();
   content += "</div>";
-  //TODO: Eigenen Header mit "made with love"
+  //TODO: Eigenen Footer mit "made with love"
   content += "</body></html>";
 
   return content;

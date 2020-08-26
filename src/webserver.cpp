@@ -1,21 +1,21 @@
 #include "webserver.h"
 #include "webgui.h"
-#include "webcontroller.h"
+#include "controller.h"
 
 void WebServer::setup() {
     WebServer::IP = WiFi.localIP().toString();
 
-    WebServer::httpwebserver.on("/", WebController::index);
+    WebServer::httpwebserver.on("/", Controller::index);
 	
-    // HttpServer::web.on("/manifest.json", Controller::getManifest);
-	// HttpServer::web.on("/logo.svg", Controller::getLogoSvg);
+    WebServer::httpwebserver.on("/manifest.json", Controller::getManifest);
+	WebServer::httpwebserver.on("/logo.svg", Controller::getLogoSvg);
 
-	// HttpServer::web.on("/api/color", HTTP_PUT, Controller::saveColor);
-	// HttpServer::web.on("/api/time", HTTP_PUT, Controller::saveTime);
-	// HttpServer::web.on("/api/dnd", HTTP_PUT, Controller::saveDnd);
-	// HttpServer::web.on("/api/wifi", HTTP_DELETE, Controller::deleteWiFi);
+	// WebServer::httpwebserver.on("/api/color", HTTP_PUT, Controller::saveColor);
+	// WebServer::httpwebserver.on("/api/time", HTTP_PUT, Controller::saveTime);
+	// WebServer::httpwebserver.on("/api/dnd", HTTP_PUT, Controller::saveDnd);
+	// WebServer::httpwebserver.on("/api/wifi", HTTP_DELETE, Controller::deleteWiFi);
 
-    WebServer::httpwebserver.onNotFound(WebController::notFound);
+    WebServer::httpwebserver.onNotFound(Controller::notFound);
     WebServer::httpwebserver.begin();
 }
 

@@ -2,17 +2,7 @@
 #define WORDCLOCK_CONFIG_H
 
 #include <Arduino.h>
-
-typedef struct { 
-  int r;
-  int g;
-  int b;
-} color_t;
-
-typedef struct {
-  int hour;
-  int minute;
-} clock_time_t;
+#include "types.h"
 
 /***********************************************
  * CONFIG START
@@ -37,9 +27,10 @@ typedef struct {
  * -------
  * 0: before
  * 1: after
+ * 2: disabled
  */
 #ifndef GRID_SINGLE_MINUTES
-  #define GRID_SINGLE_MINUTES 1
+  #define GRID_SINGLE_MINUTES 2
 #endif
 
 /* Data PINs, where the LED strip are connected to */

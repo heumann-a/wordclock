@@ -1,6 +1,7 @@
-#pragma once
+#ifndef WORDCLOCK_CONTROLLER_H
+#define WORDCLOCK_CONTROLLER_H
 
-class WebController {
+class Controller {
   public:
     static void index();
     static void saveColor();    
@@ -11,3 +12,5 @@ class WebController {
     static void getManifest();
     static void notFound();
 };
+
+#endif
