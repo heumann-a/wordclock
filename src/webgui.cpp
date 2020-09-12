@@ -38,6 +38,7 @@ String WebGui::createStyleSheet() {
   content += "section div div.time select { display: inline-block; flex: 1; }";
   content += "#reset_wifi { background-color: #3d72a8; border: 0; width: 100%; color: #eee; padding: 10px; cursor: pointer; }";
   content += "#reset_wifi_message { display: none; text-align: center;}";
+  content += "div.love { position: relative; bottom: 0; left: 0; right: 0; background-color: #839799; text-align:center; }";
   content += "footer { position: fixed; bottom: 0; left: 0; right: 0; background-color: #3d72a8; text-align: right; }";
   content += "footer button { background-color: #3d72a8; color: #eee; border: 0; padding: 15px; text-transform: uppercase; font-weight: bold; }";
   content += "footer button:hover,footer button:active { color: #ccc; cursor: pointer; }";
@@ -103,7 +104,7 @@ String WebGui::createContent() {
   content += "<div><label>Vordergrundfarbe</label><input id=\"fg\" value=\"#\" type=\"color\"></div>";
   content += "<div><label>Hintergrundfarbe</label><input id=\"bg\" value=\"#\" type=\"color\"></div>";   content += "<div><label>Stromversorgung in mA</label><input id=\"power_supply\" type=\"number\" min=0 step=\"100\" value=\"" + String(Config::power_supply) + "\"></div>";
   content += "<div>";
-  content += "<label>Helligkeit test</label>";
+  content += "<label>Helligkeit</label>";
   content += "<select id=\"brightness\">";
 
   for (double brightness_percnt = 0.0; brightness_percnt < Led::getMaxBrightnessPercnt(); brightness_percnt+=0.1) {
@@ -193,6 +194,7 @@ String WebGui::createFooter() {
   String content = "";
 
   content += "<footer>";
+  content += "<div class=\"love\">Made with &#10084 from Alex</div>";
   content += "<button id=\"save\" type=\"submit\" class=\"button\">Speichern</button>";
   content += "</footer>";
 
@@ -223,7 +225,6 @@ String WebGui::index() {
   content += WebGui::createContent();
   content += WebGui::createFooter();
   content += "</div>";
-  //TODO: Eigenen Footer mit "made with love"
   content += "</body></html>";
 
   return content;

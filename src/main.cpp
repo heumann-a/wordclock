@@ -40,6 +40,7 @@ void setup() {
   Config::load();
 
   Serial.println("Init-Step WLAN");
+  // TODO: add retry if possible
   WLAN::setup();
   Serial.println("Init-Step WebServer");
   WebServer::setup();
@@ -58,3 +59,6 @@ void loop() {
   NTPTime::loop();
   WebServer::loop();  
 }
+
+// TODO: RealTimeClock hinzufügen wenn WLAN ausfällt
+// TODO: Wlan Manager ausschalten bzw weiter initalisieren nach TimeOut
