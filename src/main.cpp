@@ -36,6 +36,9 @@ void setup() {
   Serial.println();
   LittleFS.begin();
 
+  // Make them Black in Case of WifiManager keep Stopping
+  Led::BlackLed();
+  
   Serial.println("Init-Step Load Config");
   Config::load();
 

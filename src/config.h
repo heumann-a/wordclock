@@ -43,7 +43,6 @@
 #define NUM_LEDS NUM_LEDS_FIRST + NUM_LEDS_SECOND
 
 
-// TODO: evtl nicht notwendig da externes netzteil?!
 #ifndef CONSUMPTION_D1_MINI
   #define CONSUMPTION_D1_MINI 170 // 170mA in active mode
 #endif

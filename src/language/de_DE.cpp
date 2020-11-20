@@ -8,17 +8,17 @@
 
 void Grid_de_DE::setTime(int hour, int minute) {
   if(hour == -1 || minute == -1) {
-	return;
+	  return;
   }
 
   if(DND::active(hour, minute)) {
-	for(int i = 0; i < NUM_LEDS; i++) {
-	  Led::ids[i].setRGB(0, 0, 0);
-	}
+    for(int i = 0; i < NUM_LEDS; i++) {
+      Led::ids[i].setRGB(0, 0, 0);
+    }
 
-	FastLED.show();
+    FastLED.show();
 
-	return;
+    return;
   }
 
   int singleMinute = minute % 5;

@@ -19,7 +19,6 @@ void NTPTime::loop() {
 
     // Check if new Minute began
     if(m != NTPTime::minute) {
-        Serial.println(NTPTime::ntpClient.getFormattedTime());
         // Check for new Hour
         if(m == 0 && h == NTPTime::hour) {
             h = (++h) % 24;

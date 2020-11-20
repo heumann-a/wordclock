@@ -24,6 +24,7 @@ class Led {
     static double getMaxBrightnessPercnt();
     static int getMaxNumberIlluminatedLeds();
     static void LEDTest();
+    static void BlackLed();
 };
 
 #endif

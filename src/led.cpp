@@ -29,7 +29,6 @@ int Led::getLedId(int id) {
 void Led::setup() {
   FastLED.addLeds<NEOPIXEL, DATA_PIN1>(Led::ids, 0, NUM_LEDS);
   FastLED.addLeds<NEOPIXEL, DATA_PIN2>(Led::ids, NUM_LEDS_FIRST, NUM_LEDS);
-  // FastLED.addLeds<NEOPIXEL, DATA_PIN>(Led::ids, NUM_LEDS); //old Code
   FastLED.setBrightness(10);
 
   for(int i = 0; i < NUM_LEDS; i++) {
@@ -64,6 +63,14 @@ void Led::LEDTest(){
     Led::ids[i] = CRGB::Black;
     FastLED.show();
   }
+}
+
+void Led::BlackLed(){
+  for(int i = 0; i < NUM_LEDS; i++) {
+    Led::ids[i] = CRGB::Black;
+    FastLED.show();
+  }
+  
 }
 
 CRGB Led::ids[NUM_LEDS];

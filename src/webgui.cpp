@@ -100,10 +100,6 @@ String WebGui::createContent() {
   String content = "";
 
   content += "<main>";
-
-  Serial.print("Farbe: ");
-  String farbe = Color::rgbToHex(Config::color_fg);
-  Serial.println(farbe);
   content += "<section id=\"color\" class=\"active\">";
   content += "<div><label>Vordergrundfarbe</label><input id=\"fg\" value=\"#" + Color::rgbToHex(Config::color_fg) + "\" type=\"color\"></div>";
   content += "<div><label>Hintergrundfarbe</label><input id=\"bg\" value=\"#" + Color::rgbToHex(Config::color_bg) + "\" type=\"color\"></div>";   
@@ -208,8 +204,6 @@ String WebGui::createFooter() {
 
 String WebGui::index() {
   String content = "";
-
-  //WebServer::change();
 
   content += "<!DOCTYPE html><html><head>";
   content += "<meta charset=\"utf-8\">";
