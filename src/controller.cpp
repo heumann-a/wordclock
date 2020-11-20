@@ -94,13 +94,13 @@ void Controller::getManifest() {
 
   content += "{";
   content += "\"background_color\": \"#FFFFFF\",";
-  content += "\"description\": \"panbachi.de WordClock\",";
+  content += "\"description\": \"Alex WortUhr\",";
   content += "\"dir\": \"ltr\",";
   content += "\"display\": \"standalone\",";
   content += "\"icons\": [{\"sizes\": \"128x128\", \"src\": \"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAMAAAD04JH5AAAAXVBMVEUzMzMAAAAzMzMyMjIzMzMzMzMyMjI1NTXu7u4zMzM9cqiIiIhIeq3AztyZss1kjrji5uh8nsFzmb7T2+SvwtWmvNJWhLPM1+FPT0/Hx8erq6ujo6NycnJcXFyKqMdkRsj5AAAACHRSTlPwANm7MYVREuXaafsAAAKuSURBVHja7NHJeoMwDEVhx2aQHXkgDAEC7/+aTRqD+KDtKjKb/su74WCJS5TlSopEpMqzSxQDCqkTk8UmoFT6BKpcAjKpTyGzd0Ap9Ulk+R2g9GnUK6DQJyqeAbsDzNOV0TTvjnARmd7oxwDMwtjrjUzkmjwgiYcmuVD0+wMkMtAjKCH1YoBkBr2QQqR8/+MVxBrQQ1L9IWCEpMZDQICkwj5ghsTmXcAEG3XTWtizbVPD50y7gCus7t48oYMth6/R3+FTrr8GWDRvNyC3uKFlDwhoFo7+f90wcAc4s0JYII2OO8AbYuNmDfHcAWhIG7fWEOQO6Axp4tYY0nEHVIbUcasNqbgD7E/n9jRa7gB6AqxhcUd6AOYAKkALxCJ9nz0AbNWhdwG2gvPYVRb4A/72H/DFjh3qAAjDQBi2E5BAN5C8/2PiGMlPmolT7OxS8an2bgYYMDEAiyjdWLEqAVzF3Nm4GiED8BjxavWsXJ/BEAF4jtO7Hf2xKQBZIImP5LK93kIHYCRjdmN6XTQAhtIsvTY9gLF8NL+fGgCLyWiDuTQAVrO0wx0YFABQTrMWu/dBAYD1vJYy2uO1AH5Q5D8ZP7yGBhhggAEGGHC3b8YqCANREGytRCIhTbj//0zLHIwcTKGrsFuGBxnSBOa9LUABClCAAhSgAFcCGxNEiEoM6p0R40XlwOACAP4REaLyej8IxN4QkaLywOACAP6R0aJyTA8PvTtmhKikz9v19pwRopKkd30/wGhRueFTmQsKRovKfRp86BsSRohKUA1/RcN4UXlgcAEA/8h4UfncOEgA+kdGiEoO/tHf8F0KUIACFKAABShAAT4OcN6+nPPXzvvjBYd8xSNecknVfPJFp0jVa2oc5stu8bpfvPCYr3zGS6/52m+8+JyvfufL78n6/wsOPRSv+uhUewAAAABJRU5ErkJggg==\", \"type\": \"image/png\"}],";
   content += "\"lang\": \"en-US\",";
-  content += "\"name\": \"panbachi.de WordClock\",";
-  content += "\"short_name\": \"WordClock\",";
+  content += "\"name\": \"Alex WortUhr\",";
+  content += "\"short_name\": \"WortUhr\",";
   content += "\"start_url\": \"/\",";
   content += "\"theme_color\": \"#3d72a8\"";
   content += "}";

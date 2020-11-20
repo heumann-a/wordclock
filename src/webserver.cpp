@@ -7,15 +7,15 @@ void WebServer::setup() {
 
     WebServer::httpwebserver.on("/", Controller::index);
 	
-    WebServer::httpwebserver.on("/manifest.json", Controller::getManifest);
-	WebServer::httpwebserver.on("/logo.svg", Controller::getLogoSvg);
+        WebServer::httpwebserver.on("/manifest.json", Controller::getManifest);
+        WebServer::httpwebserver.on("/logo.svg", Controller::getLogoSvg);
 
-	// WebServer::httpwebserver.on("/api/color", HTTP_PUT, Controller::saveColor);
-	// WebServer::httpwebserver.on("/api/time", HTTP_PUT, Controller::saveTime);
-	// WebServer::httpwebserver.on("/api/dnd", HTTP_PUT, Controller::saveDnd);
-	// WebServer::httpwebserver.on("/api/wifi", HTTP_DELETE, Controller::deleteWiFi);
+        WebServer::httpwebserver.on("/api/color", HTTP_PUT, Controller::saveColor);
+        WebServer::httpwebserver.on("/api/time", HTTP_PUT, Controller::saveTime);
+        WebServer::httpwebserver.on("/api/dnd", HTTP_PUT, Controller::saveDnd);
+        WebServer::httpwebserver.on("/api/wifi", HTTP_DELETE, Controller::deleteWiFi);
+        WebServer::httpwebserver.onNotFound(Controller::notFound);
 
-    WebServer::httpwebserver.onNotFound(Controller::notFound);
     WebServer::httpwebserver.begin();
 }
 

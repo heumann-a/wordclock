@@ -4,6 +4,7 @@
 #include "webserver.h"
 #include "config.h"
 #include "led.h"
+#include "color.h"
 
 String WebGui::pad(int value) {
   if(value < 10) {
@@ -100,9 +101,13 @@ String WebGui::createContent() {
 
   content += "<main>";
 
+  Serial.print("Farbe: ");
+  String farbe = Color::rgbToHex(Config::color_fg);
+  Serial.println(farbe);
   content += "<section id=\"color\" class=\"active\">";
-  content += "<div><label>Vordergrundfarbe</label><input id=\"fg\" value=\"#\" type=\"color\"></div>";
-  content += "<div><label>Hintergrundfarbe</label><input id=\"bg\" value=\"#\" type=\"color\"></div>";   content += "<div><label>Stromversorgung in mA</label><input id=\"power_supply\" type=\"number\" min=0 step=\"100\" value=\"" + String(Config::power_supply) + "\"></div>";
+  content += "<div><label>Vordergrundfarbe</label><input id=\"fg\" value=\"#" + Color::rgbToHex(Config::color_fg) + "\" type=\"color\"></div>";
+  content += "<div><label>Hintergrundfarbe</label><input id=\"bg\" value=\"#" + Color::rgbToHex(Config::color_bg) + "\" type=\"color\"></div>";   
+  content += "<div><label>Stromversorgung in mA</label><input id=\"power_supply\" type=\"number\" min=0 step=\"100\" value=\"" + String(Config::power_supply) + "\"></div>";
   content += "<div>";
   content += "<label>Helligkeit</label>";
   content += "<select id=\"brightness\">";
