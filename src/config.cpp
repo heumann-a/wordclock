@@ -59,14 +59,14 @@ void Config::load() {
   Config::brightness = 0.5;
 
   Config::automatic_timezone = true;
-  Config::timezone = 7200; // in Minutes 2 hours Offset for Germany
+  Config::timezone = 3600; // in Minutes 1 hours Offset for Germany
 
   Config::dnd_active = false;
   Config::dnd_start.hour = -1;
   Config::dnd_start.minute = -1;
   Config::dnd_end.hour = -1;
   Config::dnd_end.minute = -1;
-  Config::ntp = "pool.ntp.org";
+  Config::ntp = "europe.pool.ntp.org";
 
   // Open saved Config from File
   File file = LittleFS.open("/wordclock_config.json", "r");

@@ -26,6 +26,14 @@ void NTPTime::loop() {
 
         NTPTime::minute = m;
         NTPTime::hour = h;
+
+        Serial.print("Time: ");
+        Serial.print(h);
+        Serial.print(":");
+        Serial.print(m);
+        Serial.print("    - Offset: ");
+        Serial.println(Config::timezone);
+
         Grid::setTime(NTPTime::hour, NTPTime::minute);
 
         if (Config::automatic_timezone) {
