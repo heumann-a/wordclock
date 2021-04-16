@@ -134,7 +134,7 @@ void Config::load() {
 
   NTPTime::ntpClient.setPoolServerName(Config::ntp.c_str());
   NTPTime::ntpClient.setTimeOffset(Config::timezone);
-
+  
   file.close();
 }
 

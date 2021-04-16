@@ -52,6 +52,7 @@ void setup() {
   Serial.println("Init-Step NTPTime");
   NTPTime::setup();
 
+  Grid::setLanguage(Config::language_de_alt);
   Grid::setTime(NTPTime::hour, NTPTime::minute);
 
   Led::LEDTest();

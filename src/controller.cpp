@@ -50,7 +50,8 @@ void Controller::saveTime() {
     Config::timezone = doc["tz"].as<int>();
   }
 
-  Config::language_de_alt = doc["language_alt"].as<int>() == 1;
+  Config::language_de_alt = doc["lang"].as<int>() == 1;
+  
   Grid::setLanguage(Config::language_de_alt);
 
   Config::ntp = doc["ntp"].as<String>();
