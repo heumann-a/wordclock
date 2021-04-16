@@ -43,6 +43,7 @@ void Config::save() {
   serializeJson(doc, file);
 
   file.close();
+  Serial.println("Config saved.");
 }
 
 void Config::load() {
@@ -105,10 +106,6 @@ void Config::load() {
       (doc["brightness"].as<double>() > Led::getMaxBrightnessPercnt()) ? Led::getMaxBrightnessPercnt() : doc["brightness"].as<double>();
   }
 
-  if (doc["language_alt"]) {
-    Config::language_de_alt = doc["language_alt"].as<bool>();
-  } 
-
   // AutoTimezone Active 
   if (doc["tz_auto"]) {
     Config::automatic_timezone = doc["tz_auto"].as<bool>();
@@ -119,6 +116,9 @@ void Config::load() {
   } else {
     Config::timezone = doc["timezone"].as<int>();
   }
+
+  Config::language_de_alt = doc["language_alt"].as<bool>();
+
 
   // Do Not Disturb Settings
   Config::dnd_active = doc["dnd_active"].as<bool>();
@@ -136,6 +136,7 @@ void Config::load() {
   NTPTime::ntpClient.setTimeOffset(Config::timezone);
   
   file.close();
+  Serial.println("Config loaded.");
 }
 
 color_t Config::color_bg{};

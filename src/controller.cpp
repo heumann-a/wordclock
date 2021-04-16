@@ -51,7 +51,7 @@ void Controller::saveTime() {
   }
 
   Config::language_de_alt = doc["lang"].as<int>() == 1;
-  
+
   Grid::setLanguage(Config::language_de_alt);
 
   Config::ntp = doc["ntp"].as<String>();
