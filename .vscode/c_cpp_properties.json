@@ -1,13 +1,15 @@
+//
+// !!! WARNING !!! AUTO-GENERATED FILE!
+// PLEASE DO NOT MODIFY IT AND USE "platformio.ini":
+// https://docs.platformio.org/page/projectconf/section_env_build.html#build-flags
+//
 {
     "configurations": [
         {
-            "name": "!!! WARNING !!! AUTO-GENERATED FILE, PLEASE DO NOT MODIFY IT AND USE https://docs.platformio.org/page/projectconf/section_env_build.html#build-flags"
-        },
-        {
-            "name": "Win32",
+            "name": "PlatformIO",
             "includePath": [
-                "c:/Users/heuma/Documents/github/wordclock/include",
-                "c:/Users/heuma/Documents/github/wordclock/src",
+                "C:/Users/heuma/Documents/github/wordclock/include",
+                "C:/Users/heuma/Documents/github/wordclock/src",
                 "C:/Users/heuma/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266HTTPClient/src",
                 "C:/Users/heuma/.platformio/packages/framework-arduinoespressif8266/libraries/LittleFS/src",
                 "C:/Users/heuma/.platformio/lib/WifiManager",
@@ -15,10 +17,10 @@
                 "C:/Users/heuma/.platformio/packages/framework-arduinoespressif8266/libraries/DNSServer/src",
                 "C:/Users/heuma/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266WiFi/src",
                 "C:/Users/heuma/.platformio/lib/NTPClient",
-                "c:/Users/heuma/Documents/github/wordclock/.pio/libdeps/wemos_d1_mini/FastLED",
+                "C:/Users/heuma/Documents/github/wordclock/.pio/libdeps/wemos_d1_mini/FastLED",
                 "C:/Users/heuma/.platformio/packages/framework-arduinoespressif8266/libraries/SoftwareSerial/src",
                 "C:/Users/heuma/.platformio/packages/framework-arduinoespressif8266/libraries/SPI",
-                "c:/Users/heuma/Documents/github/wordclock/.pio/libdeps/wemos_d1_mini/ArduinoJson/src",
+                "C:/Users/heuma/Documents/github/wordclock/.pio/libdeps/wemos_d1_mini/ArduinoJson/src",
                 "C:/Users/heuma/.platformio/packages/framework-arduinoespressif8266/tools/sdk/include",
                 "C:/Users/heuma/.platformio/packages/framework-arduinoespressif8266/tools/sdk/libc/xtensa-lx106-elf/include",
                 "C:/Users/heuma/.platformio/packages/framework-arduinoespressif8266/cores/esp8266",
@@ -54,8 +56,8 @@
             "browse": {
                 "limitSymbolsToIncludedHeaders": true,
                 "path": [
-                    "c:/Users/heuma/Documents/github/wordclock/include",
-                    "c:/Users/heuma/Documents/github/wordclock/src",
+                    "C:/Users/heuma/Documents/github/wordclock/include",
+                    "C:/Users/heuma/Documents/github/wordclock/src",
                     "C:/Users/heuma/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266HTTPClient/src",
                     "C:/Users/heuma/.platformio/packages/framework-arduinoespressif8266/libraries/LittleFS/src",
                     "C:/Users/heuma/.platformio/lib/WifiManager",
@@ -63,10 +65,10 @@
                     "C:/Users/heuma/.platformio/packages/framework-arduinoespressif8266/libraries/DNSServer/src",
                     "C:/Users/heuma/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266WiFi/src",
                     "C:/Users/heuma/.platformio/lib/NTPClient",
-                    "c:/Users/heuma/Documents/github/wordclock/.pio/libdeps/wemos_d1_mini/FastLED",
+                    "C:/Users/heuma/Documents/github/wordclock/.pio/libdeps/wemos_d1_mini/FastLED",
                     "C:/Users/heuma/.platformio/packages/framework-arduinoespressif8266/libraries/SoftwareSerial/src",
                     "C:/Users/heuma/.platformio/packages/framework-arduinoespressif8266/libraries/SPI",
-                    "c:/Users/heuma/Documents/github/wordclock/.pio/libdeps/wemos_d1_mini/ArduinoJson/src",
+                    "C:/Users/heuma/Documents/github/wordclock/.pio/libdeps/wemos_d1_mini/ArduinoJson/src",
                     "C:/Users/heuma/.platformio/packages/framework-arduinoespressif8266/tools/sdk/include",
                     "C:/Users/heuma/.platformio/packages/framework-arduinoespressif8266/tools/sdk/libc/xtensa-lx106-elf/include",
                     "C:/Users/heuma/.platformio/packages/framework-arduinoespressif8266/cores/esp8266",
@@ -101,7 +103,7 @@
                 ]
             },
             "defines": [
-                "PLATFORMIO=50003",
+                "PLATFORMIO=50100",
                 "ESP8266",
                 "ARDUINO_ARCH_ESP8266",
                 "ARDUINO_ESP8266_WEMOS_D1MINI",
@@ -119,7 +121,6 @@
                 "VTABLES_IN_FLASH",
                 ""
             ],
-            "intelliSenseMode": "gcc-x64",
             "cStandard": "c99",
             "cppStandard": "c++11",
             "compilerPath": "C:/Users/heuma/.platformio/packages/toolchain-xtensa/bin/xtensa-lx106-elf-gcc.exe",

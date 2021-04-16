@@ -55,6 +55,7 @@ void setup() {
   Grid::setTime(NTPTime::hour, NTPTime::minute);
 
   Led::LEDTest();
+  Led::BlackLed();
 }
 
 void loop() {

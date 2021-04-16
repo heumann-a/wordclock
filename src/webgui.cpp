@@ -61,7 +61,7 @@ String WebGui::htmlOption(const String& label, const String& value, const String
 String WebGui::createScript() {
   String content = "";
 
-  content += "window.onload=function(){var e=function(e){return document.getElementById(e)},n=document.querySelector('nav'),t=n.querySelectorAll('li'),d=document.querySelectorAll('main section'),i=e('save'),a=e('reset_wifi'),o=e('reset_wifi_message'),c='color',l={fg:e('fg'),bg:e('bg'),power_supply:e('power_supply'),brightness:e('brightness'),tzAuto:e('tz_auto'),tz:e('tz'),ntp:e('ntp'),dndActive:e('dnd_active'),dndSH:e('dnd_s_h'),dndSM:e('dnd_s_m'),dndEH:e('dnd_e_h'),dndEM:e('dnd_e_m')};t.forEach(function(n){n.onclick=function(n){if('li'==n.currentTarget.tagName.toLowerCase()&&n.currentTarget.hasAttribute('name')){c=n.currentTarget.getAttribute('name');for(var a=0;a<t.length;a++)t[a].classList.remove('active');n.currentTarget.classList.add('active');for(a=0;a<d.length;a++)d[a].classList.remove('active');i.style.display='wifi'==c?'none':'inline-block',e(c).classList.add('active')}}}),i.onclick=function(e){var n={},t='/api/'+c;if('color'==c)n.fg=l.fg.value,n.bg=l.bg.value,n.power_supply=l.power_supply.value,n.brightness=l.brightness.value;else if('time'==c)n.tz_auto=l.tzAuto.value,n.tz=l.tz.value,n.ntp=l.ntp.value;else{if('dnd'!=c)return;n.dnd_active=l.dndActive.value,n.dnd_start_hour=l.dndSH.value,n.dnd_start_minute=l.dndSM.value,n.dnd_end_hour=l.dndEH.value,n.dnd_end_minute=l.dndEM.value}fetch(t,{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(n)}).then(function(e){})},a.onclick=function(e){fetch('/api/wifi',{method:'DELETE',headers:{'Content-Type':'application/json'},body:''}).then(function(e){}),n.classList.add('disabled'),a.style.display='none',o.style.display='block'}};";
+  content += "window.onload=function(){var e=function(e){return document.getElementById(e)},n=document.querySelector('nav'),t=n.querySelectorAll('li'),d=document.querySelectorAll('main section'),i=e('save'),a=e('reset_wifi'),o=e('reset_wifi_message'),c='color',l={fg:e('fg'),bg:e('bg'),power_supply:e('power_supply'),brightness:e('brightness'),tzAuto:e('tz_auto'),tz:e('tz'),ntp:e('ntp'),lang: e('lang'),dndActive:e('dnd_active'),dndSH:e('dnd_s_h'),dndSM:e('dnd_s_m'),dndEH:e('dnd_e_h'),dndEM:e('dnd_e_m')};t.forEach(function(n){n.onclick=function(n){if('li'==n.currentTarget.tagName.toLowerCase()&&n.currentTarget.hasAttribute('name')){c=n.currentTarget.getAttribute('name');for(var a=0;a<t.length;a++)t[a].classList.remove('active');n.currentTarget.classList.add('active');for(a=0;a<d.length;a++)d[a].classList.remove('active');i.style.display='wifi'==c?'none':'inline-block',e(c).classList.add('active')}}}),i.onclick=function(e){var n={},t='/api/'+c;if('color'==c)n.fg=l.fg.value,n.bg=l.bg.value,n.power_supply=l.power_supply.value,n.brightness=l.brightness.value;else if('time'==c)n.tz_auto=l.tzAuto.value,n.tz=l.tz.value,n.ntp=l.ntp.value,n.lang=l.lang.value;else{if('dnd'!=c)return;n.dnd_active=l.dndActive.value,n.dnd_start_hour=l.dndSH.value,n.dnd_start_minute=l.dndSM.value,n.dnd_end_hour=l.dndEH.value,n.dnd_end_minute=l.dndEM.value}fetch(t,{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(n)}).then(function(e){})},a.onclick=function(e){fetch('/api/wifi',{method:'DELETE',headers:{'Content-Type':'application/json'},body:''}).then(function(e){}),n.classList.add('disabled'),a.style.display='none',o.style.display='block'}};";
 
   return content;
 }
@@ -106,6 +106,9 @@ String WebGui::createContent() {
   content += "<div><label>Stromversorgung in mA</label><input id=\"power_supply\" type=\"number\" min=0 step=\"100\" value=\"" + String(Config::power_supply) + "\"></div>";
   content += "<div>";
   content += "<label>Helligkeit</label>";
+
+
+  // Navbar Brightness
   content += "<select id=\"brightness\">";
 
   for (double brightness_percnt = 0.0; brightness_percnt < Led::getMaxBrightnessPercnt(); brightness_percnt+=0.1) {
@@ -121,6 +124,7 @@ String WebGui::createContent() {
   content += "</div>";
   content += "</section>";
 
+  // Navbar Time
   content += "<section id=\"time\">";
   content += "<div><label>Automatische Zeitzone</label>";
   content += "<select id=\"tz_auto\">";
@@ -146,12 +150,17 @@ String WebGui::createContent() {
 
   content += "</select></div>";
   content += "<div><label>NTP-Server</label><input id=\"ntp\" type=\"text\" value=\"" + Config::ntp + "\"></div>";
+  content += "<div><label>Anzeigesprache</label><select id=\"lang\">";
+  content += WebGui::htmlOption("Richtig", String(1), String(Config::language_de_alt));
+  content += WebGui::htmlOption("Falsch", String(0), String(Config::language_de_alt));
+  content += "</select></div>";  
   content += "</section>";
 
+  // Navbar DnD
   content += "<section id=\"dnd\">";
   content += "<div><label>Nachtmodus</label><select id=\"dnd_active\">";
-  content += WebGui::htmlOption("Inaktiv", String(0), String(Config::dnd_active));
   content += WebGui::htmlOption("Aktiv", String(1), String(Config::dnd_active));
+  content += WebGui::htmlOption("Inaktiv", String(0), String(Config::dnd_active));
   content += "</select></div>";
   content += "<div><label>Start</label><div class=\"time\">";
   content += "<select id=\"dnd_s_h\">";
@@ -182,6 +191,7 @@ String WebGui::createContent() {
   content += "</select></div></div>";
   content += "</section>";
 
+  // Navbar Reset WiFi
   content += "<section id=\"wifi\">";
   content += "<button id=\"reset_wifi\" type=\"submit\">WiFi Einstellungen zurücksetzen</button>";
   content += "<div id=\"reset_wifi_message\">Die WiFi Einstellungen wurden zurückgesetzt. Es besteht keine Verbindung mehr zu der WordClock. Um die WordClock weiterhin zu verwenden muss das WiFi erneut eingerichtet werden.</div>";
@@ -196,7 +206,8 @@ String WebGui::createFooter() {
 
   content += "<footer>";
   content += "<div class=\"love\">Made with &#10084 from Alex</div>";
-  content += "<button id=\"save\" type=\"submit\" class=\"button\">Speichern</button>";
+  content += "<button id=\"save\" onClick=\"history.go(0)\" VALUE=\"Refresh\" type=\"submit\" class=\"button\">Speichern</button>";
+
   content += "</footer>";
 
   return content;
