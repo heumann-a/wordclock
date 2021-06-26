@@ -62,6 +62,7 @@ class Config {
     static int power_supply;
     static double brightness;
     static bool automatic_timezone;
+    static bool language_de_alt;
     static int timezone;
     static bool dnd_active;
     static clock_time_t dnd_start;

@@ -32,6 +32,7 @@ void Config::save() {
   doc["brightness"] = Config::brightness;
   doc["tz_auto"] = Config::automatic_timezone;
   doc["timezone"] = Config::timezone;
+  doc["language_alt"] = Config::language_de_alt;
   doc["dnd_active"] = Config::dnd_active;
   doc["dnd_start_hour"] = Config::dnd_start.hour;
   doc["dnd_start_minute"] = Config::dnd_start.minute;
@@ -42,6 +43,7 @@ void Config::save() {
   serializeJson(doc, file);
 
   file.close();
+  Serial.println("Config saved.");
 }
 
 void Config::load() {
@@ -60,6 +62,8 @@ void Config::load() {
 
   Config::automatic_timezone = true;
   Config::timezone = 3600; // in Minutes 1 hours Offset for Germany
+
+  Config::language_de_alt = true; // defaulting to alternative Spelling
 
   Config::dnd_active = false;
   Config::dnd_start.hour = -1;
@@ -113,6 +117,9 @@ void Config::load() {
     Config::timezone = doc["timezone"].as<int>();
   }
 
+  Config::language_de_alt = doc["language_alt"].as<bool>();
+
+
   // Do Not Disturb Settings
   Config::dnd_active = doc["dnd_active"].as<bool>();
   Config::dnd_start.hour = doc["dnd_start_hour"].as<int>();
@@ -127,8 +134,9 @@ void Config::load() {
 
   NTPTime::ntpClient.setPoolServerName(Config::ntp.c_str());
   NTPTime::ntpClient.setTimeOffset(Config::timezone);
-
+  
   file.close();
+  Serial.println("Config loaded.");
 }
 
 color_t Config::color_bg{};
@@ -136,6 +144,7 @@ color_t Config::color_fg{};
 int Config::power_supply{};
 double Config::brightness{};
 bool Config::automatic_timezone{};
+bool Config::language_de_alt{};
 int Config::timezone{};
 bool Config::dnd_active{};
 clock_time_t Config::dnd_start{};
