@@ -6,7 +6,7 @@
 // Split LEDS to 2 Pins because got error with one
 #define NUM_LEDS_FIRST 66
 #define NUM_LEDS_SECOND 55
-// TODO: Add 4 LEDs for minutes 
+ 
 #define NUM_LEDS NUM_LEDS_FIRST + NUM_LEDS_SECOND 
 #define DATA_PIN1 D4
 #define DATA_PIN2 D3
