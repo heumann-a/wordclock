@@ -31,7 +31,7 @@ void Controller::saveColor() {
     (doc["brightness"].as<double>() > Led::getMaxBrightnessPercnt()) ? Led::getMaxBrightnessPercnt() : doc["brightness"].as<double>();
 
   Config::save();
-  Grid::setTime(NTPTime::hour, NTPTime::minute);
+  Grid::setTime(NTPTime::month, NTPTime::day, NTPTime::hour, NTPTime::minute);
 
   WebServer::httpwebserver.send(200, "text/html", "");
 }
@@ -57,7 +57,7 @@ void Controller::saveTime() {
   Config::ntp = doc["ntp"].as<String>();
 
   Config::save();
-  Grid::setTime(NTPTime::hour, NTPTime::minute);
+  Grid::setTime(NTPTime::month, NTPTime::day, NTPTime::hour, NTPTime::minute);
 
   WebServer::httpwebserver.send(200, "text/html", "");
 }
@@ -76,7 +76,7 @@ void Controller::saveDnd() {
   Config::dnd_end.minute = doc["dnd_end_minute"].as<int>();
 
   Config::save();
-  Grid::setTime(NTPTime::hour, NTPTime::minute);
+  Grid::setTime(NTPTime::month, NTPTime::day, NTPTime::hour, NTPTime::minute);
 
   WebServer::httpwebserver.send(200, "text/html", "");
 }

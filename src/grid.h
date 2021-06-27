@@ -19,9 +19,9 @@ class Grid {
         // Viertel vor
         static int time_minutes[12][12];
 
-	
-	    static void setTime(int hour, int minute);
-        static void setLanguage(bool language_alt);
+        static int Namen[2][4];
+        static void setTime(int, int, int , int);
+        static void setLanguage(bool);
 };
 
 #endif
