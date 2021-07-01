@@ -11,10 +11,11 @@ void WLAN::setup() {
     WiFi.setOutputPower(18);
     
     // Use Both to Set Hostname   
-    WiFi.hostname("Wortuhr");
-    wifi_station_set_hostname("Wortuhr");
+    wifi_station_set_hostname("wortuhr");
+    WiFi.hostname("wortuhr");
 
     WiFiManager wifiManager;
+    wifiManager.setHostname("wortuhr");
     // wifiManager.resetSettings(); //for debugging 
     wifiManager.autoConnect("Wortuhr");
 }
