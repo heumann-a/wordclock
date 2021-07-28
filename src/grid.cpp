@@ -15,11 +15,10 @@ void Grid::setTime(int month, int day, int hour, int minute) {
 
     if(DND::active(hour, minute)) {
         for(int i = 0; i < NUM_LEDS; i++) {
-        Led::ids[i].setRGB(0, 0, 0);
+            Led::ids[i].setRGB(0, 0, 0);
         }
 
         FastLED.show();
-        
         return;
     }
 
@@ -76,11 +75,11 @@ void Grid::setTime(int month, int day, int hour, int minute) {
 
     bool she = false, he = false;
 
-
     if ( (month == 5 && day == 1) || (month == 7 && day == 16) || (month == 7 && day == 17)) {
         she = true;
         he = true;
-        Led::ids[Led::getLedId(116)].setRGB(Config::color_fg.r, Config::color_fg.g, Config::color_fg.b);
+        // Schalte Herz ein
+        Led::ids[Led::getLedId(115)].setRGB(Config::color_fg.r, Config::color_fg.g, Config::color_fg.b);
     }
 
     if ( (month == 11 && day == 5) || he) {
@@ -98,7 +97,6 @@ void Grid::setTime(int month, int day, int hour, int minute) {
             }
         }
     }
-    
     FastLED.setBrightness(Config::brightness * 255);
     FastLED.show();
 }
@@ -161,8 +159,8 @@ int Grid::time_hours[12][6] = {
 };
 
 int Grid::Namen[2][4] = {
-    {121, 120, 119, -1}, // Eli
-    {114, 113, 112, 111, } // Sebi
+    {110, 111, 112, -1}, // Eli
+    {117, 118, 119, 120} // Sebi
 };
 
 int *Grid::minutes = &Grid::alt_time_minutes[0][0];

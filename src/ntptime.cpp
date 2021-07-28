@@ -5,6 +5,7 @@
 #include "ntptime.h"
 #include "grid.h"
 #include "utcOffset.h"
+#include "config.h"
 
 void NTPTime::setup() {
     NTPTime::ntpClient.begin();

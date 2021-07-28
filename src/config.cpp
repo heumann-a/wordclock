@@ -16,8 +16,6 @@ void Config::save() {
     return;
   }
 
-  Serial.println("Save config.");
-
   NTPTime::ntpClient.setPoolServerName(Config::ntp.c_str());
   NTPTime::ntpClient.setTimeOffset(Config::timezone);
 

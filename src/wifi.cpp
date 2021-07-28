@@ -17,7 +17,7 @@ void WLAN::setup() {
     WiFiManager wifiManager;
     wifiManager.setHostname("wortuhr");
     // wifiManager.resetSettings(); //for debugging 
-    wifiManager.autoConnect("Wortuhr");
+    wifiManager.autoConnect("wortuhr");
 }
 
 void WLAN::reset(){

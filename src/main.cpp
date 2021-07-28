@@ -6,14 +6,6 @@ Project for Wordclock with Wifi NTP updates
 
 
 // Global HeaderFiles
-#include <ArduinoJson.h>
-#include <ESP8266WiFi.h>
-#include <DNSServer.h>
-#include <ESP8266WebServer.h>
-#include <WiFiManager.h>
-#include <FastLED.h>
-#include <NTPClient.h>
-#include <WiFiUdp.h>
 #include <LittleFS.h>
 
 
@@ -38,16 +30,17 @@ void setup() {
 
   // Make them Black in Case of WifiManager keep Stopping
   Led::BlackLed();
-  
+
   Serial.println("Init-Step Load Config");
   Config::load();
+  Serial.println("Init-Step LED");
+  Led::setup();
+  Led::BlackLed();
 
   Serial.println("Init-Step WLAN");
   WLAN::setup();
   Serial.println("Init-Step WebServer");
   WebServer::setup();
-  Serial.println("Init-Step LED");
-  Led::setup();
   Serial.println("Init-Step NTPTime");
   NTPTime::setup();
 
@@ -59,7 +52,6 @@ void setup() {
 }
 
 void loop() {
-  // put your main code here, to run repeatedly
   NTPTime::loop();
   WebServer::loop();  
 }
