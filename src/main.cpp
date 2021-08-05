@@ -28,14 +28,11 @@ void setup() {
   Serial.println();
   LittleFS.begin();
 
-  // Make them Black in Case of WifiManager keep Stopping
-  Led::BlackLed();
-
   Serial.println("Init-Step Load Config");
   Config::load();
   Serial.println("Init-Step LED");
   Led::setup();
-  Led::BlackLed();
+  Led::LEDTest();
 
   Serial.println("Init-Step WLAN");
   WLAN::setup();
@@ -46,9 +43,6 @@ void setup() {
 
   Grid::setLanguage(Config::language_de_alt);
   Grid::setTime(NTPTime::month, NTPTime::day, NTPTime::hour, NTPTime::minute);
-
-  Led::LEDTest();
-  Led::BlackLed();
 }
 
 void loop() {

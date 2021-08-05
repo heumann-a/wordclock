@@ -57,7 +57,7 @@ int Led::getMaxNumberIlluminatedLeds() {
 }
 
 void Led::LEDTest(){
-    for(int i = 0; i < NUM_LEDS; i++) {
+  for(int i = 0; i < NUM_LEDS; i++) {
     Led::ids[i] = CRGB::Blue; 
     FastLED.show();
     delay(25);
