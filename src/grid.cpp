@@ -27,9 +27,16 @@ void Grid::setTime(int month, int day, int hour, int minute) {
     
     minute = (minute - (minute % 5));
     
-    if(minute >= 15) {
-        hour += 1;
+    if (Config::language_de_alt) {
+        if(minute >= 15) {
+            hour += 1;
+        }
+    } else {
+        if(minute >= 25) {
+	        hour += 1;
+        }
     }
+
 
     minute = minute / 5;
     hour = hour % 12;

@@ -59,9 +59,9 @@ void Config::load() {
   Config::brightness = 0.5;
 
   Config::automatic_timezone = true;
-  Config::timezone = 3600; // in Minutes 1 hours Offset for Germany
+  Config::timezone = 3600; // in Seconds  -  1 hours Offset for Germany WinterTime
 
-  Config::language_de_alt = true; // defaulting to alternative Spelling
+  Config::language_de_alt = true; // defaulting to alternative Spelling (dreiviertel)
 
   Config::dnd_active = false;
   Config::dnd_start.hour = -1;
