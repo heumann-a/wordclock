@@ -9,10 +9,6 @@ void WLAN::setup() {
     WiFi.setSleepMode(WIFI_NONE_SLEEP);
     WiFi.forceSleepWake();
     WiFi.setOutputPower(18);
-    
-    // Use Both to Set Hostname   
-    wifi_station_set_hostname("wortuhr");
-    WiFi.hostname("wortuhr");
 
     WiFiManager wifiManager;
     wifiManager.setHostname("wortuhr");
