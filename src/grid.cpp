@@ -7,7 +7,7 @@
 #include "led.h"
 
 
-void Grid::setTime(int hour, int minute) {
+void Grid::setTime(int month, int day, int hour, int minute) {
 
     if(hour == -1 || minute == -1) {
         return;
@@ -15,11 +15,10 @@ void Grid::setTime(int hour, int minute) {
 
     if(DND::active(hour, minute)) {
         for(int i = 0; i < NUM_LEDS; i++) {
-        Led::ids[i].setRGB(0, 0, 0);
+            Led::ids[i].setRGB(0, 0, 0);
         }
 
         FastLED.show();
-        
         return;
     }
 
@@ -28,9 +27,16 @@ void Grid::setTime(int hour, int minute) {
     
     minute = (minute - (minute % 5));
     
-    if(minute >= 15) {
-        hour += 1;
+    if (Config::language_de_alt) {
+        if(minute >= 15) {
+            hour += 1;
+        }
+    } else {
+        if(minute >= 25) {
+	        hour += 1;
+        }
     }
+
 
     minute = minute / 5;
     hour = hour % 12;
@@ -74,6 +80,30 @@ void Grid::setTime(int hour, int minute) {
         }
     }
 
+    bool she = false, he = false;
+
+    if ( (month == 5 && day == 1) || (month == 7 && day == 16) || (month == 7 && day == 17)) {
+        she = true;
+        he = true;
+        // Schalte Herz ein
+        Led::ids[Led::getLedId(115)].setRGB(Config::color_fg.r, Config::color_fg.g, Config::color_fg.b);
+    }
+
+    if ( (month == 11 && day == 5) || he) {
+        for(int n = 0; n < 4; n++) {  
+            if(Grid::Namen[1][n] >= 0) {
+                Led::ids[Led::getLedId(Grid::Namen[1][n])].setRGB(Config::color_fg.r, Config::color_fg.g, Config::color_fg.b);
+            }
+        }
+    }
+
+    if ( (month == 7 && day == 9) || she) {
+        for(int n = 0; n < 4; n++) {  
+            if(Grid::Namen[0][n] >= 0) {
+                Led::ids[Led::getLedId(Grid::Namen[0][n])].setRGB(Config::color_fg.r, Config::color_fg.g, Config::color_fg.b);
+            }
+        }
+    }
     FastLED.setBrightness(Config::brightness * 255);
     FastLED.show();
 }
@@ -133,6 +163,11 @@ int Grid::time_hours[12][6] = {
   { 80,  81,  82,  83,  -1,  -1}, // neun
   { 93,  94,  95,  96,  -1,  -1}, // zehn
   { 77,  78,  79,  -1,  -1,  -1}  // elf
+};
+
+int Grid::Namen[2][4] = {
+    {110, 111, 112, -1}, // Eli
+    {117, 118, 119, 120} // Sebi
 };
 
 int *Grid::minutes = &Grid::alt_time_minutes[0][0];

@@ -6,14 +6,20 @@
 #include <WiFiUdp.h>
 
 class NTPTime {
+    private:
+        
+        static int getYear(time_t &);
+        static int getMonth(time_t &);
+        static int getDay(time_t &);
+        
     public:
         // Var to connect to NTP
         static WiFiUDP udpNTP;
         // NTP Client initalization
         static NTPClient ntpClient;
 
-        static int hour;
-        static int minute;
+        static int year, month, day, hour, minute;
+
 
         static void setup();
         static void loop();

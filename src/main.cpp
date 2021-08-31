@@ -6,14 +6,6 @@ Project for Wordclock with Wifi NTP updates
 
 
 // Global HeaderFiles
-#include <ArduinoJson.h>
-#include <ESP8266WiFi.h>
-#include <DNSServer.h>
-#include <ESP8266WebServer.h>
-#include <WiFiManager.h>
-#include <FastLED.h>
-#include <NTPClient.h>
-#include <WiFiUdp.h>
 #include <LittleFS.h>
 
 
@@ -36,34 +28,24 @@ void setup() {
   Serial.println();
   LittleFS.begin();
 
-  // Make them Black in Case of WifiManager keep Stopping
-  Led::BlackLed();
-  
   Serial.println("Init-Step Load Config");
   Config::load();
+  Serial.println("Init-Step LED");
+  Led::setup();
+  Led::LEDTest();
 
   Serial.println("Init-Step WLAN");
-  // TODO: add retry if possible
   WLAN::setup();
   Serial.println("Init-Step WebServer");
   WebServer::setup();
-  Serial.println("Init-Step LED");
-  Led::setup();
   Serial.println("Init-Step NTPTime");
   NTPTime::setup();
 
   Grid::setLanguage(Config::language_de_alt);
-  Grid::setTime(NTPTime::hour, NTPTime::minute);
-
-  Led::LEDTest();
-  Led::BlackLed();
+  Grid::setTime(NTPTime::month, NTPTime::day, NTPTime::hour, NTPTime::minute);
 }
 
 void loop() {
-  // put your main code here, to run repeatedly
   NTPTime::loop();
   WebServer::loop();  
 }
-
-// TODO: RealTimeClock hinzufügen wenn WLAN ausfällt
-// TODO: Wlan Manager ausschalten bzw weiter initalisieren nach TimeOut

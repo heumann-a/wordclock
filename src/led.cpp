@@ -1,8 +1,10 @@
-#include <FastLED.h>
-
 #include "grid.h"
 #include "led.h"
 #include "config.h"
+
+// Necessary for Code
+#define GRID_COLS 11
+#define GRID_ROWS 11
 
 int Led::getLedId(int id) {
   int col = id % GRID_COLS;
@@ -27,8 +29,8 @@ int Led::getLedId(int id) {
 }
 
 void Led::setup() {
-  FastLED.addLeds<NEOPIXEL, DATA_PIN1>(Led::ids, 0, NUM_LEDS);
-  FastLED.addLeds<NEOPIXEL, DATA_PIN2>(Led::ids, NUM_LEDS_FIRST, NUM_LEDS);
+  FastLED.addLeds<WS2812B, DATA_PIN1, GRB>(Led::ids, 0, NUM_LEDS_FIRST);
+  FastLED.addLeds<WS2812B, DATA_PIN2, GRB>(Led::ids, NUM_LEDS_FIRST, NUM_LEDS_SECOND);
   FastLED.setBrightness(10);
 
   for(int i = 0; i < NUM_LEDS; i++) {
@@ -55,7 +57,7 @@ int Led::getMaxNumberIlluminatedLeds() {
 }
 
 void Led::LEDTest(){
-    for(int i = 0; i < NUM_LEDS; i++) {
+  for(int i = 0; i < NUM_LEDS; i++) {
     Led::ids[i] = CRGB::Blue; 
     FastLED.show();
     delay(25);

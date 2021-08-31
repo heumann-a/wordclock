@@ -34,7 +34,7 @@
 #endif
 
 /* Data PINs, where the LED strip are connected to */
-#define DATA_PIN D4
+#define DATA_PIN1 D1
 #define DATA_PIN2 D3
 
 /* Amount of LEDs per DATA_PIN and complete number*/
