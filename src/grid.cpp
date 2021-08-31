@@ -80,30 +80,6 @@ void Grid::setTime(int month, int day, int hour, int minute) {
         }
     }
 
-    bool she = false, he = false;
-
-    if ( (month == 5 && day == 1) || (month == 7 && day == 16) || (month == 7 && day == 17)) {
-        she = true;
-        he = true;
-        // Schalte Herz ein
-        Led::ids[Led::getLedId(115)].setRGB(Config::color_fg.r, Config::color_fg.g, Config::color_fg.b);
-    }
-
-    if ( (month == 11 && day == 5) || he) {
-        for(int n = 0; n < 4; n++) {  
-            if(Grid::Namen[1][n] >= 0) {
-                Led::ids[Led::getLedId(Grid::Namen[1][n])].setRGB(Config::color_fg.r, Config::color_fg.g, Config::color_fg.b);
-            }
-        }
-    }
-
-    if ( (month == 7 && day == 9) || she) {
-        for(int n = 0; n < 4; n++) {  
-            if(Grid::Namen[0][n] >= 0) {
-                Led::ids[Led::getLedId(Grid::Namen[0][n])].setRGB(Config::color_fg.r, Config::color_fg.g, Config::color_fg.b);
-            }
-        }
-    }
     FastLED.setBrightness(Config::brightness * 255);
     FastLED.show();
 }
@@ -163,11 +139,6 @@ int Grid::time_hours[12][6] = {
   { 80,  81,  82,  83,  -1,  -1}, // neun
   { 93,  94,  95,  96,  -1,  -1}, // zehn
   { 77,  78,  79,  -1,  -1,  -1}  // elf
-};
-
-int Grid::Namen[2][4] = {
-    {110, 111, 112, -1}, // Eli
-    {117, 118, 119, 120} // Sebi
 };
 
 int *Grid::minutes = &Grid::alt_time_minutes[0][0];
