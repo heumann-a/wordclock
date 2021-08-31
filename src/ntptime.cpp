@@ -36,7 +36,7 @@ void NTPTime::loop() {
 
         Grid::setTime(NTPTime::month, NTPTime::day, NTPTime::hour, NTPTime::minute);
 
-        if (Config::automatic_timezone && (h == 0 && m < 30) ) {
+        if (Config::automatic_timezone) {
             Config::timezone = UtcOffset::getLocalizedUtcOffset();
             NTPTime::ntpClient.setTimeOffset(Config::timezone);
         }
