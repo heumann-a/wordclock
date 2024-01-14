@@ -65,7 +65,7 @@ void Grid::setTime(int month, int day, int hour, int minute) {
         }
     }
 
-    // 2 disable Single Minutes
+    // 2 is disabling Single Minutes
     if(GRID_SINGLE_MINUTES < 2){
         if(GRID_SINGLE_MINUTES == 1) {
             // Single Minutes at the END
@@ -80,8 +80,40 @@ void Grid::setTime(int month, int day, int hour, int minute) {
         }
     }
 
+    Grid::setSpecial(month, day);
     FastLED.setBrightness(Config::brightness * 255);
     FastLED.show();
+}
+
+void Grid::setSpecial(int month, int day) {
+    bool he = ((month == 11 && day == 5) || (month == 5 && day == 1) || (month == 7 && day == 16) || (month == 7 && day == 17)) ? true : false;
+    bool she =  ((month == 7 && day == 9) || (month == 5 && day == 1) || (month == 7 && day == 16) || (month == 7 && day == 17)) ? true : false;
+
+    if (he && she) {
+        // Schalte Herz ein
+        Led::ids[Led::getLedId(115)].setRGB(Config::color_fg.r, Config::color_fg.g, Config::color_fg.b);
+    } else {
+        for(int n = 110; n < NUM_LEDS; n++){
+            Led::ids[Led::getLedId(n)].setRGB(0, 0, 0);
+        }
+    }
+
+    if (he) {
+        for(int n = 0; n < 4; n++) {  
+            if(Grid::Namen[1][n] >= 0) {
+                Led::ids[Led::getLedId(Grid::Namen[1][n])].setRGB(Config::color_fg.r, Config::color_fg.g, Config::color_fg.b);
+            }
+        }
+    }
+
+    if (she) {
+        for(int n = 0; n < 4; n++) {  
+            if(Grid::Namen[0][n] >= 0) {
+                Led::ids[Led::getLedId(Grid::Namen[0][n])].setRGB(Config::color_fg.r, Config::color_fg.g, Config::color_fg.b);
+            }
+        }
+    }
+
 }
 
 void Grid::setLanguage(bool language_alt) {
@@ -139,6 +171,11 @@ int Grid::time_hours[12][6] = {
   { 80,  81,  82,  83,  -1,  -1}, // neun
   { 93,  94,  95,  96,  -1,  -1}, // zehn
   { 77,  78,  79,  -1,  -1,  -1}  // elf
+};
+
+int Grid::Namen[2][4] = {
+    {110, 111, 112, -1}, // Eli
+    {117, 118, 119, 120} // Sebi
 };
 
 int *Grid::minutes = &Grid::alt_time_minutes[0][0];
