@@ -34,13 +34,13 @@ void NTPTime::loop() {
         NTPTime::month = NTPTime::getMonth(rawtime); 
         NTPTime::day = NTPTime::getDay(rawtime);
 
-        Grid::setTime(NTPTime::month, NTPTime::day, NTPTime::hour, NTPTime::minute);
-
         if (Config::automatic_timezone) {
             Config::timezone = UtcOffset::getLocalizedUtcOffset();
             NTPTime::ntpClient.setTimeOffset(Config::timezone);
         }
     }
+
+    Grid::setTime(NTPTime::month, NTPTime::day, NTPTime::hour, NTPTime::minute);
 }
 
 int NTPTime::getYear(time_t &epochtime) {
