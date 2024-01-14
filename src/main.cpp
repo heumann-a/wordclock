@@ -15,6 +15,7 @@ Project for Wordclock with Wifi NTP updates
 #include "webserver.h"
 #include "webgui.h"
 #include "wifi.h"
+#include "ota.h"
 #include "config.h"
 #include "grid.h"
 #include "types.h"
@@ -40,12 +41,16 @@ void setup() {
   WebServer::setup();
   Serial.println("Init-Step NTPTime");
   NTPTime::setup();
+  Serial.println("Init-Step OTA");
+  OTAUpdate::setup();
 
   Grid::setLanguage(Config::language_de_alt);
   Grid::setTime(NTPTime::month, NTPTime::day, NTPTime::hour, NTPTime::minute);
+  Serial.println("Init-Finished");
 }
 
 void loop() {
   NTPTime::loop();
   WebServer::loop();  
+  OTAUpdate::loop();
 }

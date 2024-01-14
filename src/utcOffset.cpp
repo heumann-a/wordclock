@@ -12,7 +12,7 @@ int UtcOffset::getLocalizedUtcOffset() {
   int responseCode = http.GET();
 
   // Only accept Successfull Responses
-  if ( (responseCode >= 200) && (responseCode <= 299)) {
+  if (responseCode == 200) {
     String payload = http.getString();
 
     StaticJsonDocument<1024> doc;

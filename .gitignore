@@ -42,5 +42,4 @@
 
 #Vscode
 .Vscode
-.pio/build/project.checksum
 *.checksum
