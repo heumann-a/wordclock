@@ -41,14 +41,17 @@ void Grid::setTime(int month, int day, int hour, int minute) {
     minute = minute / 5;
     hour = hour % 12;
 
+    // Reset every LED to Background Color or to black
     for(int i = 0; i < NUM_LEDS; i++) {
         Led::ids[i].setRGB(Config::color_bg.r * 0.2, Config::color_bg.g * 0.2, Config::color_bg.b * 0.2);
     }
     
+    // Same Text "It is"
     for(int i = 0; i < 5; i++) {
         Led::ids[Led::getLedId(Grid::time_it_is[i])].setRGB(Config::color_fg.r, Config::color_fg.g, Config::color_fg.b);
     }
 
+    // Minutes
     for(int m = 0; m < 12; m++) {
         if ( *(Grid::minutes + ( minute * 12) + m) >= 0) {
             Led::ids[Led::getLedId( *(Grid::minutes + ( minute * 12) + m) )].setRGB(Config::color_fg.r, Config::color_fg.g, Config::color_fg.b);
@@ -59,6 +62,7 @@ void Grid::setTime(int month, int day, int hour, int minute) {
         hourLimit = 3;
     }
     
+    // Hours
     for(int h = 0; h < hourLimit; h++) {  
         if(Grid::time_hours[hour][h] >= 0) {
             Led::ids[Led::getLedId(Grid::time_hours[hour][h])].setRGB(Config::color_fg.r, Config::color_fg.g, Config::color_fg.b);
@@ -86,19 +90,16 @@ void Grid::setTime(int month, int day, int hour, int minute) {
 }
 
 void Grid::setSpecial(int month, int day) {
-    bool he = ((month == 11 && day == 5) || (month == 5 && day == 1) || (month == 7 && day == 16) || (month == 7 && day == 17)) ? true : false;
-    bool she =  ((month == 7 && day == 9) || (month == 5 && day == 1) || (month == 7 && day == 16) || (month == 7 && day == 17)) ? true : false;
+    bool both = ((month == 5 && day == 1) || (month == 7 && day == 16) || (month == 7 && day == 17)) ? true : false;
+    bool he = (month == 11 && day == 5) ? true : false;
+    bool she =  (month == 7 && day == 9) ? true : false;
 
-    if (he && she) {
+    if (both) {
         // Schalte Herz ein
         Led::ids[Led::getLedId(115)].setRGB(Config::color_fg.r, Config::color_fg.g, Config::color_fg.b);
-    } else {
-        for(int n = 110; n < NUM_LEDS; n++){
-            Led::ids[Led::getLedId(n)].setRGB(0, 0, 0);
-        }
     }
 
-    if (he) {
+    if (he || both) {
         for(int n = 0; n < 4; n++) {  
             if(Grid::Namen[1][n] >= 0) {
                 Led::ids[Led::getLedId(Grid::Namen[1][n])].setRGB(Config::color_fg.r, Config::color_fg.g, Config::color_fg.b);
@@ -106,7 +107,7 @@ void Grid::setSpecial(int month, int day) {
         }
     }
 
-    if (she) {
+    if (she || both) {
         for(int n = 0; n < 4; n++) {  
             if(Grid::Namen[0][n] >= 0) {
                 Led::ids[Led::getLedId(Grid::Namen[0][n])].setRGB(Config::color_fg.r, Config::color_fg.g, Config::color_fg.b);
