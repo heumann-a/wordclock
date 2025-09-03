@@ -5,7 +5,6 @@
 
 class OTAUpdate {
     public:
-        static ArduinoOTAClass ArduinoOTA;
 
         static void setup();
         static void loop();
