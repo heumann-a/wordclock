@@ -1,6 +1,4 @@
 #include <Arduino.h>
-#include <NTPClient.h>
-#include <WiFiUdp.h>
 
 #include "ntptime.h"
 #include "grid.h"
