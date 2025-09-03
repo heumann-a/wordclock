@@ -3,36 +3,26 @@
 
 void OTAUpdate::setup() {
     
-    OTAUpdate::ArduinoOTA.onStart([]() {
+    ArduinoOTA.onStart([]() {
         String type;
         if (ArduinoOTA.getCommand() == U_FLASH)
-        type = "sketch";
+            type = "sketch";
         else // U_SPIFFS
-        type = "filesystem";
+            type = "filesystem";
 
         // NOTE: if updating SPIFFS this would be the place to unmount SPIFFS using SPIFFS.end()
         Serial.println("Start updating " + type);
     });
 
-    OTAUpdate::ArduinoOTA.onEnd([]() {
+    ArduinoOTA.onEnd([]() {
         Serial.println("\nEnd");
     });
     
-    OTAUpdate::ArduinoOTA.onProgress([](unsigned int progress, unsigned int total) {
+    ArduinoOTA.onProgress([](unsigned int progress, unsigned int total) {
         Serial.printf("Progress: %u%%\r", (progress / (total / 100)));
-
-        for(int i = 0; i < NUM_LEDS; i++) {
-            if( i < (int)(progress / total))
-                Led::ids[i].setRGB(0, 255, 0);
-            else
-                Led::ids[i].setRGB(0, 0, 0);
-        }
-        FastLED.setBrightness(100);
-        FastLED.show();
-        delay(50);
     });
     
-    OTAUpdate::ArduinoOTA.onError([](ota_error_t error) {
+    ArduinoOTA.onError([](ota_error_t error) {
         Serial.printf("Error[%u]: ", error);
         if (error == OTA_AUTH_ERROR) Serial.println("Auth Failed");
         else if (error == OTA_BEGIN_ERROR) Serial.println("Begin Failed");
@@ -41,11 +31,9 @@ void OTAUpdate::setup() {
         else if (error == OTA_END_ERROR) Serial.println("End Failed");
     });
 
-    OTAUpdate::ArduinoOTA.begin();
+    ArduinoOTA.begin();
 }
 
 void OTAUpdate::loop() {
-    OTAUpdate::ArduinoOTA.handle();
+  ArduinoOTA.handle();
 }
-
-ArduinoOTAClass OTAUpdate::ArduinoOTA;
