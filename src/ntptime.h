@@ -2,7 +2,7 @@
 #ifndef WORDCLOCK_TIME_H
 #define WORDCLOCK_TIME_H
 
-#include <NTPClient.h>
+#include "NTPClient.h"
 #include <WiFiUdp.h>
 
 class NTPTime {
