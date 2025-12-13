@@ -52,5 +52,5 @@ void setup() {
 void loop() {
   NTPTime::loop();
   WebServer::loop();  
-  OTAUpdate::loop();
+  // OTAUpdate::loop();
 }

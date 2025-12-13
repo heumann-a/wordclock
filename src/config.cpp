@@ -19,7 +19,7 @@ void Config::save() {
   NTPTime::ntpClient.setPoolServerName(Config::ntp.c_str());
   NTPTime::ntpClient.setTimeOffset(Config::timezone);
 
-  StaticJsonDocument<1024> doc;
+  JsonDocument doc;
   doc["color_bg_r"] = Config::color_bg.r;
   doc["color_bg_g"] = Config::color_bg.g;
   doc["color_bg_b"] = Config::color_bg.b;
@@ -81,7 +81,7 @@ void Config::load() {
 
   Serial.println("Load config.");
 
-  StaticJsonDocument<1024> doc;
+  JsonDocument doc;
   deserializeJson(doc, file);
 
   // Colour Settings

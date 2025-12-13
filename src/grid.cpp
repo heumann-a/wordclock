@@ -14,10 +14,7 @@ void Grid::setTime(int month, int day, int hour, int minute) {
     }
 
     if(DND::active(hour, minute)) {
-        for(int i = 0; i < NUM_LEDS; i++) {
-            Led::ids[i].setRGB(0, 0, 0);
-        }
-
+        Led::BlackLed();
         FastLED.show();
         return;
     }
@@ -41,6 +38,7 @@ void Grid::setTime(int month, int day, int hour, int minute) {
     minute = minute / 5;
     hour = hour % 12;
 
+    // Reset everything to Background  Color
     for(int i = 0; i < NUM_LEDS; i++) {
         Led::ids[i].setRGB(Config::color_bg.r * 0.2, Config::color_bg.g * 0.2, Config::color_bg.b * 0.2);
     }
