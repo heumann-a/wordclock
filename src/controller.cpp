@@ -21,7 +21,7 @@ void Controller::index() {
 void Controller::saveColor() {
   String json = WebServer::httpwebserver.arg("plain");
 
-  DynamicJsonDocument doc(2048);
+  JsonDocument doc;
   deserializeJson(doc, json);
 
   Config::color_fg = Color::hexToRgb(doc["fg"].as<String>());
@@ -39,7 +39,7 @@ void Controller::saveColor() {
 void Controller::saveTime() {
   String json = WebServer::httpwebserver.arg("plain");
 
-  DynamicJsonDocument doc(2048);
+  JsonDocument doc;
   deserializeJson(doc, json);
 
   Config::automatic_timezone = doc["tz_auto"].as<int>() == 1;
@@ -65,7 +65,7 @@ void Controller::saveTime() {
 void Controller::saveDnd() {
   String json = WebServer::httpwebserver.arg("plain");
 
-  DynamicJsonDocument doc(2048);
+  JsonDocument doc;
   deserializeJson(doc, json);
 
 
